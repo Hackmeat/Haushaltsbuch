@@ -10,33 +10,20 @@ import Diagram from './Diagram';
 function App() {
 
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                maxWidth: '100vw',
-                maxHeight: '100vh',
-                alignItems: 'flex-start'
-            }}
-        >
-
-            <Box sx={{ bgcolor: '#00ffff', height: '50vh', width: '50vw' }}>
+        <div id="window">
+            <div className="windowObject">
                 <Table />
-            </Box>
-
-            <Box sx={{ bgcolor: '#00ff00', height: '50vh', width: '50vw', alignSelf: 'flex-start' }}>
+            </div>
+            <div className="windowObject">
                 <Input />
-            </Box>
-
-            <Box sx={{ bgcolor: '#ff00ff', height: '50vh', width: '50vw' }}>
+            </div>
+            <div className="windowObject">
                 <Cake />
-            </Box>
-
-            <Box sx={{ bgcolor: '#ff0000', height: '50vh', width: '50vw' }}>
+            </div>
+            <div className="windowObject">
                 <Diagram />
-            </Box>
-        </Box>
+            </div>
+        </div>
     );
 }
 
