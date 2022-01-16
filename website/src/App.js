@@ -1,9 +1,7 @@
 import './App.css';
 
-import Box from '@mui/material/Box';
-
 import Input from './Input';
-import Table from './Table';
+import TableObject from './TableObject';
 import Cake from './Cake';
 import Diagram from './Diagram';
 
@@ -12,7 +10,7 @@ function App() {
     return (
         <div id="window">
             <div className="windowObject">
-                <Table />
+                <TableObject />
             </div>
             <div className="windowObject">
                 <Input />

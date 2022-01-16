@@ -5,6 +5,9 @@ const bodyParser = require('body-parser')
 const app = express()
 const jsonParser = bodyParser.json()
 
+var cors = require('cors')
+app.use(cors())
+
 let currentdb = 'temp1'
 
 //----------------------------------------------------------------
@@ -49,7 +52,7 @@ app.get('/cat/:name', (req, res) => {
     })
 })
 
-
+//Detail search
 app.get('/det/:name', (req, res) => {
     const stmt = db.prepare('select * from '+ currentdb +' where detail=?')
     stmt.all(req.params.name, (err, rows) => {
@@ -61,8 +64,22 @@ app.get('/det/:name', (req, res) => {
     })
 })
 
-app.get('/date/:name', (req, res) => {
+//Specific date
+app.get('/specDate/:name', (req, res) => {
     const stmt = db.prepare('select * from '+ currentdb +' where date=?')
+    stmt.all(req.params.name, (err, rows) => {
+        if (err) {
+            res.status(500).json('error')
+            return console.error(err.message)
+        }
+        res.status(200).json(rows)
+    })
+})
+
+//Date contains
+app.get('/rangeDate/:name', (req, res) => {
+
+    const stmt = db.prepare('select * from '+ currentdb +' where instr(date, ?) > 0')
     stmt.all(req.params.name, (err, rows) => {
         if (err) {
             res.status(500).json('error')
