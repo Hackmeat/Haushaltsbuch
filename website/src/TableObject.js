@@ -19,12 +19,21 @@ function TableObject() {
     }
 
     const getRows = () => {
-        axios.get('http://localhost:3000/all')
+
+        var today = new Date();
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + "-" + mm
+
+        console.log(today)
+
+        axios.get('http://localhost:3000/rangeDate/' + today)
             .then(response => {
                 let tempRows = []
-                for(let i = 0; i < response.data.length; i++) {
+                for (let i = 0; i < response.data.length; i++) {
                     tempRows.push(createData(response.data[i].detail, response.data[i].date, response.data[i].amount.toFixed(2) + "€"))
-                }      
+                }
                 setRows(tempRows)
             });
     }
