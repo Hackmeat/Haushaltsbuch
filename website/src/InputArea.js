@@ -21,7 +21,7 @@ function InputArea() {
 
     return (
 
-        <FormControl fullWidth sx={{ ml: '2vw', mr: '2vw', maxWidth: '46vw' }} variant="filled">
+        <FormControl fullWidth sx={{mt: '2vh', ml: '2vw', mr: '2vw', maxWidth: '23vw' }} variant="filled">
             <InputLabel htmlFor="filled-adornment-amount">Amount</InputLabel>
             <FilledInput
                 error={isNumeric(values.amount) ? false : true}
