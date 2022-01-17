@@ -8,11 +8,30 @@ const jsonParser = bodyParser.json()
 var cors = require('cors')
 app.use(cors())
 
-let currentdb = 'temp1'
-
 //----------------------------------------------------------------
 //Connecting to database
 const db = new sqlite3.Database('./db/template.db', err => {
+    if (err) {
+        return console.error(err.message)
+    }
+    console.log('Connected to database')
+})
+
+const db_zahlung = new sqlite3.Database('./db/zahlung.db', err => {
+    if (err) {
+        return console.error(err.message)
+    }
+    console.log('Connected to zahlung database')
+})
+
+const db_purpose = new sqlite3.Database('./db/purpose.db', err => {
+    if (err) {
+        return console.error(err.message)
+    }
+    console.log('Connected to purpose database')
+})
+
+const db_category = new sqlite3.Database('./db/category.db', err => {
     if (err) {
         return console.error(err.message)
     }
@@ -30,7 +49,7 @@ app.listen(3000, () => {
 
 //Whole Database
 app.get('/all', (req, res) => {
-    const stmt = 'select * from '+ currentdb +''
+    const stmt = 'select * from ' + currentdb + ''
     db.all(stmt, (err, rows) => {
         if (err) {
             res.status(500).json('error')
@@ -42,7 +61,7 @@ app.get('/all', (req, res) => {
 
 //Search categorys
 app.get('/cat/:name', (req, res) => {
-    const stmt = db.prepare('select * from '+ currentdb +' where category=?')
+    const stmt = db.prepare('select * from ' + currentdb + ' where category=?')
     stmt.all(req.params.name, (err, rows) => {
         if (err) {
             res.status(500).json('error')
@@ -54,7 +73,7 @@ app.get('/cat/:name', (req, res) => {
 
 //Detail search
 app.get('/det/:name', (req, res) => {
-    const stmt = db.prepare('select * from '+ currentdb +' where detail=?')
+    const stmt = db.prepare('select * from ' + currentdb + ' where detail=?')
     stmt.all(req.params.name, (err, rows) => {
         if (err) {
             res.status(500).json('error')
@@ -66,7 +85,7 @@ app.get('/det/:name', (req, res) => {
 
 //Specific date
 app.get('/specDate/:name', (req, res) => {
-    const stmt = db.prepare('select * from '+ currentdb +' where date=?')
+    const stmt = db.prepare('select * from ' + currentdb + ' where date=?')
     stmt.all(req.params.name, (err, rows) => {
         if (err) {
             res.status(500).json('error')
@@ -79,7 +98,7 @@ app.get('/specDate/:name', (req, res) => {
 //Date contains
 app.get('/rangeDate/:name', (req, res) => {
 
-    const stmt = db.prepare('select * from '+ currentdb +' where instr(date, ?) > 0')
+    const stmt = db.prepare('select * from ' + currentdb + ' where instr(date, ?) > 0')
     stmt.all(req.params.name, (err, rows) => {
         if (err) {
             res.status(500).json('error')
@@ -92,8 +111,8 @@ app.get('/rangeDate/:name', (req, res) => {
 //----------------------------------------------------------------
 //Getting data from the frontend and passing it to the db
 app.post('/add', jsonParser, (req, res) => {
-    const stmt = db.prepare('insert into '+ currentdb +' (category, detail, amount, date) values (?, ?, ?, ?)')  
-    let temp = req.body['amount'].replace(',','.')
+    const stmt = db.prepare('insert into ' + currentdb + ' (category, detail, amount, date) values (?, ?, ?, ?)')
+    let temp = req.body['amount'].replace(',', '.')
     if (temp >= 0 || temp <= 0) {
         stmt.run(req.body['category'], req.body['detail'], temp, req.body['date'])
         stmt.finalize()
