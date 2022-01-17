@@ -8,15 +8,11 @@ const jsonParser = bodyParser.json()
 var cors = require('cors')
 app.use(cors())
 
-let currentdb = 'temp1'
-
-let db_zahlung = 'zahlung'
-let db_purpose = 'purpose'
-let db_category = 'category'
+let full_db = 'SELECT * FROM Payment left Join Purpose on Payment.purpose_id = Purpose.id left Join Category on Purpose.category_id = Category.id left JOIN Typ on Category.typ_id = Typ.id'
 
 //----------------------------------------------------------------
 //Connecting to database
-const db = new sqlite3.Database('./db/template.db', err => {
+const db = new sqlite3.Database('./db/haushaltsbuch_test.db', err => {
     if (err) {
         return console.error(err.message)
     }
@@ -34,7 +30,7 @@ app.listen(3000, () => {
 
 //Whole Database
 app.get('/all', (req, res) => {
-    const stmt = 'select * from ' + currentdb + ''
+    const stmt = full_db
     db.all(stmt, (err, rows) => {
         if (err) {
             res.status(500).json('error')
@@ -46,7 +42,7 @@ app.get('/all', (req, res) => {
 
 //Search categorys
 app.get('/cat/:name', (req, res) => {
-    const stmt = db.prepare('select * from ' + currentdb + ' where category=?')
+    const stmt = db.prepare(full_db + ' where category=?')
     stmt.all(req.params.name, (err, rows) => {
         if (err) {
             res.status(500).json('error')
@@ -83,7 +79,7 @@ app.get('/specDate/:name', (req, res) => {
 //Date contains
 app.get('/rangeDate/:name', (req, res) => {
 
-    const stmt = db.prepare('select * from ' + currentdb + ' where instr(date, ?) > 0')
+    const stmt = db.prepare(full_db + ' where instr(date, ?) > 0')
     stmt.all(req.params.name, (err, rows) => {
         if (err) {
             res.status(500).json('error')

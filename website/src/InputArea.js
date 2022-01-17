@@ -25,9 +25,10 @@ function InputArea() {
             <InputLabel htmlFor="filled-adornment-amount">Amount</InputLabel>
             <FilledInput
                 error={isNumeric(values.amount) ? false : true}
+                helperText={"Numeric only"}
                 id="filled-adornment-amount"
                 value={values.amount}
-                onChange={handleChange('amount') /*, console.log(values.amount)*/}
+                onChange={handleChange('amount')}
                 startAdornment={<InputAdornment position="start">€</InputAdornment>}
             />
         </FormControl>

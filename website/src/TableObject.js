@@ -32,7 +32,7 @@ function TableObject() {
             .then(response => {
                 let tempRows = []
                 for (let i = 0; i < response.data.length; i++) {
-                    tempRows.push(createData(response.data[i].detail, response.data[i].date, response.data[i].amount.toFixed(2) + "€"))
+                    tempRows.push(createData(response.data[i].purpose, response.data[i].date, response.data[i].value.toFixed(2) + "€"))
                 }
                 setRows(tempRows)
             });
