@@ -8,30 +8,15 @@ const jsonParser = bodyParser.json()
 var cors = require('cors')
 app.use(cors())
 
+let currentdb = 'temp1'
+
+let db_zahlung = 'zahlung'
+let db_purpose = 'purpose'
+let db_category = 'category'
+
 //----------------------------------------------------------------
 //Connecting to database
 const db = new sqlite3.Database('./db/template.db', err => {
-    if (err) {
-        return console.error(err.message)
-    }
-    console.log('Connected to database')
-})
-
-const db_zahlung = new sqlite3.Database('./db/zahlung.db', err => {
-    if (err) {
-        return console.error(err.message)
-    }
-    console.log('Connected to zahlung database')
-})
-
-const db_purpose = new sqlite3.Database('./db/purpose.db', err => {
-    if (err) {
-        return console.error(err.message)
-    }
-    console.log('Connected to purpose database')
-})
-
-const db_category = new sqlite3.Database('./db/category.db', err => {
     if (err) {
         return console.error(err.message)
     }
