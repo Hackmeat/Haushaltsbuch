@@ -1,6 +1,6 @@
 import './App.css';
 
-import Input from './Input';
+import InputArea from './InputArea';
 import TableObject from './TableObject';
 import Cake from './Cake';
 import Diagram from './Diagram';
@@ -13,7 +13,7 @@ function App() {
                 <TableObject />
             </div>
             <div className="windowObject">
-                <Input />
+                <InputArea />
             </div>
             <div className="windowObject">
                 <Cake />
