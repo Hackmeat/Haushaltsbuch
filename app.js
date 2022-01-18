@@ -9,6 +9,7 @@ var cors = require('cors')
 app.use(cors())
 
 let full_db = 'SELECT * FROM Payment left Join Purpose on Payment.purpose_id = Purpose.id left Join Category on Purpose.category_id = Category.id left JOIN Typ on Category.typ_id = Typ.id'
+let order_by_date = 'Order by Payment.date desc'
 
 //----------------------------------------------------------------
 //Connecting to database
@@ -42,7 +43,7 @@ app.get('/all', (req, res) => {
 
 //Date contains
 app.get('/rangeDate/:name', (req, res) => {
-    const stmt = db.prepare(full_db + ' where instr(date, ?) > 0')
+    const stmt = db.prepare(full_db + ' where instr(date, ?) > 0 ' + order_by_date)
     stmt.all(req.params.name, (err, rows) => {
         if (err) {
             res.status(500).json('error')

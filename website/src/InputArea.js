@@ -65,16 +65,21 @@ function InputArea() {
     useEffect(getCategory, [])
 
     async function sendData() {
-        let dd = String(date.getDate()).padStart(2, '0')
-        let mm = String(date.getMonth() + 1).padStart(2, '0')
-        let yyyy = date.getFullYear()
-        let dateFormat = dd + "-" + mm + "-" + yyyy
 
-        const res = await axios.post('http://localhost:3000/add', {
-            "purpose": pur,
-            "value": costs.amount,
-            "date": dateFormat
-        })
+        if (pur != '' && costs.amount != '') {
+            let dd = String(date.getDate()).padStart(2, '0')
+            let mm = String(date.getMonth() + 1).padStart(2, '0')
+            let yyyy = date.getFullYear()
+            let dateFormat = dd + "-" + mm + "-" + yyyy
+
+            const res = await axios.post('http://localhost:3000/add', {
+                "purpose": pur,
+                "value": costs.amount,
+                "date": dateFormat
+            })
+        } else {
+            console.log("error")
+        }
     }
 
 
