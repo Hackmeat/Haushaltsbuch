@@ -40,46 +40,33 @@ app.get('/all', (req, res) => {
     })
 })
 
-//Search categorys
-app.get('/cat/:name', (req, res) => {
-    const stmt = db.prepare(full_db + ' where category=?')
-    stmt.all(req.params.name, (err, rows) => {
-        if (err) {
-            res.status(500).json('error')
-            return console.error(err.message)
-        }
-        res.status(200).json(rows)
-    })
-})
-
-//Detail search
-app.get('/det/:name', (req, res) => {
-    const stmt = db.prepare('select * from ' + currentdb + ' where detail=?')
-    stmt.all(req.params.name, (err, rows) => {
-        if (err) {
-            res.status(500).json('error')
-            return console.error(err.message)
-        }
-        res.status(200).json(rows)
-    })
-})
-
-//Specific date
-app.get('/specDate/:name', (req, res) => {
-    const stmt = db.prepare('select * from ' + currentdb + ' where date=?')
-    stmt.all(req.params.name, (err, rows) => {
-        if (err) {
-            res.status(500).json('error')
-            return console.error(err.message)
-        }
-        res.status(200).json(rows)
-    })
-})
-
 //Date contains
 app.get('/rangeDate/:name', (req, res) => {
-
     const stmt = db.prepare(full_db + ' where instr(date, ?) > 0')
+    stmt.all(req.params.name, (err, rows) => {
+        if (err) {
+            res.status(500).json('error')
+            return console.error(err.message)
+        }
+        res.status(200).json(rows)
+    })
+})
+
+//Get all categorys
+app.get('/categorys', (req, res) => {
+    const stmt = db.prepare('SELECT id, category FROM Category')
+    stmt.all(req.params.name, (err, rows) => {
+        if (err) {
+            res.status(500).json('error')
+            return console.error(err.message)
+        }
+        res.status(200).json(rows)
+    })
+})
+
+//Get purposes base on category id
+app.get('/purposes/:name', (req, res) => {
+    const stmt = db.prepare('SELECT id, purpose FROM purpose WHERE category_id Like ?')
     stmt.all(req.params.name, (err, rows) => {
         if (err) {
             res.status(500).json('error')

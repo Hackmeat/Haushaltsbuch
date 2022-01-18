@@ -60,6 +60,7 @@
 }
 
 #datePicker {
-  margin-left: 2vw;
+  margin-left: 3vw;
   margin-top: 2vh;
+  max-width: 25vw;
 }

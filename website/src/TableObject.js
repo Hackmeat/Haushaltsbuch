@@ -22,7 +22,7 @@ function TableObject() {
         var today = new Date();
         var mm = String(today.getMonth() + 1).padStart(2, '0');
         var yyyy = today.getFullYear();
-        today = yyyy + "-" + mm
+        today = mm + "-" + yyyy
         axios.get('http://localhost:3000/rangeDate/' + today)
             .then(response => {
                 let tempRows = []
