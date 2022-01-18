@@ -59,8 +59,14 @@
   flex-wrap: wrap;
 }
 
-#datePicker {
-  margin-left: 3vw;
+.inputObject {
+  margin-left: 2vw;
+  margin-right: 2vw;
   margin-top: 2vh;
-  max-width: 25vw;
+  max-width: 21vw;
+  min-width: 21vw;
+}
+
+.inputObject > div {
+  width: 100%
 }

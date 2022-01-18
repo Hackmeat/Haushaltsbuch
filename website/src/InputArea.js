@@ -8,6 +8,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import Button from '@mui/material/Button';
 
 import axios from 'axios';
 
@@ -17,12 +18,10 @@ import React, { useEffect } from 'react';
 
 function InputArea() {
 
-    let purposeSearchValue = 0
-
     const [costs, setCosts] = React.useState({
         amount: '',
     });
-    const [value, setValue] = React.useState(new Date());
+    const [date, setDate] = React.useState(new Date());
     const [cat, setCat] = React.useState('');
     const [pur, setPur] = React.useState('');
     const [menuItemsCat, setMenuItemsCat] = React.useState([])
@@ -33,8 +32,7 @@ function InputArea() {
     };
 
     const handleChangeDate = (newValue) => {
-        setValue(newValue);
-        
+        setDate(newValue);
     };
 
     const handleChangeCategory = (event) => {
@@ -65,12 +63,25 @@ function InputArea() {
     }
 
     useEffect(getCategory, [])
-    
- 
+
+    async function sendData() {
+        let dd = String(date.getDate()).padStart(2, '0')
+        let mm = String(date.getMonth() + 1).padStart(2, '0')
+        let yyyy = date.getFullYear()
+        let dateFormat = dd + "-" + mm + "-" + yyyy
+
+        const res = await axios.post('http://localhost:3000/add', {
+            "purpose": pur,
+            "value": costs.amount,
+            "date": dateFormat
+        })
+    }
+
+
     return (
         <div id="inputFormat">
-            <div>
-                <FormControl fullWidth sx={{ mt: '2vh', ml: '2vw', maxWidth: '22vw', minWidth: '22vw' }}>
+            <div className="inputObject">
+                <FormControl fullWidth>
                     <InputLabel id="cat">Category</InputLabel>
                     <Select
                         labelId="cat"
@@ -84,8 +95,8 @@ function InputArea() {
                     </Select>
                 </FormControl>
             </div>
-            <div>
-                <FormControl fullWidth sx={{ mt: '2vh', ml: '2vw', maxWidth: '22vw', minWidth: '22vw' }}>
+            <div className="inputObject">
+                <FormControl fullWidth>
                     <InputLabel id="pur">Purpose</InputLabel>
                     <Select
                         labelId="pur"
@@ -99,8 +110,8 @@ function InputArea() {
                     </Select>
                 </FormControl>
             </div>
-            <div>
-                <FormControl fullWidth sx={{ mt: '2vh', ml: '2vw', maxWidth: '18vw' }} variant="filled">
+            <div className="inputObject">
+                <FormControl fullWidth variant="filled">
                     <InputLabel htmlFor="filled-adornment-amount">Amount</InputLabel>
                     <FilledInput
                         error={isNumeric(costs.amount) ? false : true}
@@ -111,16 +122,21 @@ function InputArea() {
                     />
                 </FormControl>
             </div>
-            <div id="datePicker">
+            <div className="inputObject">
                 <LocalizationProvider dateAdapter={AdapterDateFns} >
                     <DesktopDatePicker
+                        id="datePicker"
                         label="Date picker"
-                        inputFormat="dd/MM/yyyy"
-                        value={value}
+                        inputFormat="dd-MM-yyyy"
+                        mask="__-__-____"
+                        value={date}
                         onChange={handleChangeDate}
                         renderInput={(params) => <TextField {...params} />}
                     />
                 </LocalizationProvider>
+            </div>
+            <div className="inputObject">
+                <Button variant="outlined" onClick={sendData}>Submit</Button>
             </div>
         </div>
     );

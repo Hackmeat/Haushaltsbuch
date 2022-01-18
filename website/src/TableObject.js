@@ -40,7 +40,7 @@ function TableObject() {
     useEffect(() => getRows(), [])
 
     return (
-        <TableContainer component={Paper} sx={{ maxWidth: '38vw', maxHeight: '48vh', ml: '6vw', mt: '2vh' }}>
+        <TableContainer component={Paper} sx={{ maxWidth: '40vw', maxHeight: '48vh', ml: '5vw', mt: '2vh' }}>
             <Table size="small">
                 <TableHead>
                     <TableRow>

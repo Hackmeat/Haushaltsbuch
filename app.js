@@ -79,13 +79,9 @@ app.get('/purposes/:name', (req, res) => {
 //----------------------------------------------------------------
 //Getting data from the frontend and passing it to the db
 app.post('/add', jsonParser, (req, res) => {
-    const stmt = db.prepare('insert into ' + currentdb + ' (category, detail, amount, date) values (?, ?, ?, ?)')
-    let temp = req.body['amount'].replace(',', '.')
-    if (temp >= 0 || temp <= 0) {
-        stmt.run(req.body['category'], req.body['detail'], temp, req.body['date'])
-        stmt.finalize()
-        res.status(200).json('success')
-    } else {
-        console.log("Error - amount not a number")
-    }
+    const stmt = db.prepare('insert into Payment (value, purpose_id, date) values (?, ?, ?)')
+    stmt.run(req.body['value'], req.body['purpose'], req.body['date'])
+    console.log(req.body)
+    stmt.finalize()
+    res.status(200).json('success')
 });
