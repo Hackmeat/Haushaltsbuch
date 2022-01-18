@@ -14,25 +14,24 @@ function TableObject() {
 
     const [rows, setRows] = useState([])
 
-    function createData(detail, date, amount) {
-        return { detail, date, amount };
+    function createData(detail, category, date, amount) {
+        return { detail, category, date, amount };
     }
 
     const getRows = () => {
-
         var today = new Date();
         var mm = String(today.getMonth() + 1).padStart(2, '0');
         var yyyy = today.getFullYear();
-
         today = yyyy + "-" + mm
-
-        console.log(today)
-
         axios.get('http://localhost:3000/rangeDate/' + today)
             .then(response => {
                 let tempRows = []
                 for (let i = 0; i < response.data.length; i++) {
-                    tempRows.push(createData(response.data[i].purpose, response.data[i].date, response.data[i].value.toFixed(2) + "€"))
+                    if (response.data[i].typ == 'income' || response.data[i].typ == 'savings') {
+                        tempRows.push(createData(response.data[i].purpose, response.data[i].category, response.data[i].date, response.data[i].value.toFixed(2) + "€"))
+                    } else if (response.data[i].typ == 'outcome') {
+                        tempRows.push(createData(response.data[i].purpose, response.data[i].category, response.data[i].date, "-" + response.data[i].value.toFixed(2) + "€"))
+                    }
                 }
                 setRows(tempRows)
             });
@@ -41,11 +40,12 @@ function TableObject() {
     useEffect(() => getRows(), [])
 
     return (
-        <TableContainer component={Paper} sx={{ maxWidth: '30vw', maxHeight: '48vh', ml: '10vw', mt: '2vh' }}>
+        <TableContainer component={Paper} sx={{ maxWidth: '38vw', maxHeight: '48vh', ml: '6vw', mt: '2vh' }}>
             <Table size="small">
                 <TableHead>
                     <TableRow>
                         <TableCell>Name</TableCell>
+                        <TableCell>Category</TableCell>
                         <TableCell align="center">Date</TableCell>
                         <TableCell align="right">Cost</TableCell>
                     </TableRow>
@@ -59,6 +59,7 @@ function TableObject() {
                             <TableCell component="th" scope="row">
                                 {row.detail}
                             </TableCell>
+                            <TableCell align="left">{row.category}</TableCell>
                             <TableCell align="center">{row.date}</TableCell>
                             <TableCell align="right">{row.amount}</TableCell>
                         </TableRow>
