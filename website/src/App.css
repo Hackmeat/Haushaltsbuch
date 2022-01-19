@@ -49,6 +49,7 @@
 }
 
 .windowObject {
+  min-width: 450px;
   height: 50vh;
   width: 50vw;
 }

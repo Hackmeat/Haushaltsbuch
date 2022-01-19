@@ -8,12 +8,15 @@ const jsonParser = bodyParser.json()
 var cors = require('cors')
 app.use(cors())
 
+let test_db = 'haushaltsbuch_test.db'
+let nico_db = 'haushaltsbuch_nico_beulich.db'
+
 let full_db = 'SELECT * FROM Payment left Join Purpose on Payment.purpose_id = Purpose.id left Join Category on Purpose.category_id = Category.id left JOIN Typ on Category.typ_id = Typ.id'
 let order_by_date = 'Order by Payment.date desc'
 
 //----------------------------------------------------------------
 //Connecting to database
-const db = new sqlite3.Database('./db/haushaltsbuch_test.db', err => {
+const db = new sqlite3.Database('./db/' + nico_db, err => {
     if (err) {
         return console.error(err.message)
     }
@@ -76,6 +79,42 @@ app.get('/purposes/:name', (req, res) => {
         res.status(200).json(rows)
     })
 })
+
+//Get purpose color for outgoings
+app.get('/color/pur', (req, res) => {
+    const stmt = db.prepare('SELECT Purpose.purpose, Purpose.pur_color FROM Purpose left join Category on Purpose.category_id = Category.id where typ_id like 1')
+    stmt.all(req.params.name, (err, rows) => {
+        if (err) {
+            res.status(500).json('error')
+            return console.error(err.message)
+        }
+        res.status(200).json(rows)
+    })
+})
+
+//Get category color for outgoings
+app.get('/color/cat', (req, res) => {
+    const stmt = db.prepare('SELECT category, cat_color From category where typ_id like 1')
+    stmt.all(req.params.name, (err, rows) => {
+        if (err) {
+            res.status(500).json('error')
+            return console.error(err.message)
+        }
+        res.status(200).json(rows)
+    })
+})
+
+app.get('/expense', (req, res) => {
+    const stmt = db.prepare('SELECT Purpose.purpose, SUM(Payment.value) as value FROM Payment left Join Purpose on Payment.purpose_id = Purpose.id left join Category on Purpose.category_id = Category.id where typ_id like 1 GROUP by Purpose.id')
+    stmt.all(req.params.name, (err, rows) => {
+        if (err) {
+            res.status(500).json('error')
+            return console.error(err.message)
+        }
+        res.status(200).json(rows)
+    })
+})
+
 
 //----------------------------------------------------------------
 //Getting data from the frontend and passing it to the db
