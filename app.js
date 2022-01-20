@@ -80,9 +80,9 @@ app.get('/purposes/:name', (req, res) => {
     })
 })
 
-//Get purpose color for outgoings
-app.get('/color/pur', (req, res) => {
-    const stmt = db.prepare('SELECT Purpose.purpose, Purpose.pur_color FROM Purpose left join Category on Purpose.category_id = Category.id where typ_id like 1')
+//get all data for expenses
+app.get('/expense/pur', (req, res) => {
+    const stmt = db.prepare('SELECT Purpose.purpose, SUM(Payment.value) as value, Purpose.pur_color FROM Payment left Join Purpose on Payment.purpose_id = Purpose.id left join Category on Purpose.category_id = Category.id where typ_id like 1 GROUP by purpose.id')
     stmt.all(req.params.name, (err, rows) => {
         if (err) {
             res.status(500).json('error')
@@ -92,9 +92,9 @@ app.get('/color/pur', (req, res) => {
     })
 })
 
-//Get category color for outgoings
-app.get('/color/cat', (req, res) => {
-    const stmt = db.prepare('SELECT category, cat_color From category where typ_id like 1')
+//get all data for categorys
+app.get('/expense/cat', (req, res) => {
+    const stmt = db.prepare('SELECT Category.category, SUM(Payment.value) as value, Category.cat_color FROM Payment left Join Purpose on Payment.purpose_id = Purpose.id left join Category on Purpose.category_id = Category.id where typ_id like 1 GROUP by category.id')
     stmt.all(req.params.name, (err, rows) => {
         if (err) {
             res.status(500).json('error')
@@ -103,18 +103,6 @@ app.get('/color/cat', (req, res) => {
         res.status(200).json(rows)
     })
 })
-
-app.get('/expense', (req, res) => {
-    const stmt = db.prepare('SELECT Purpose.purpose, SUM(Payment.value) as value FROM Payment left Join Purpose on Payment.purpose_id = Purpose.id left join Category on Purpose.category_id = Category.id where typ_id like 1 GROUP by Purpose.id')
-    stmt.all(req.params.name, (err, rows) => {
-        if (err) {
-            res.status(500).json('error')
-            return console.error(err.message)
-        }
-        res.status(200).json(rows)
-    })
-})
-
 
 //----------------------------------------------------------------
 //Getting data from the frontend and passing it to the db
