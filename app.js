@@ -82,7 +82,7 @@ app.get('/purposes/:name', (req, res) => {
 
 //get all data for expenses
 app.get('/expense/pur', (req, res) => {
-    const stmt = db.prepare('SELECT Purpose.purpose, SUM(Payment.value) as value, Purpose.pur_color FROM Payment left Join Purpose on Payment.purpose_id = Purpose.id left join Category on Purpose.category_id = Category.id where typ_id like 1 GROUP by purpose.id')
+    const stmt = db.prepare('SELECT Purpose.purpose, SUM(Payment.value) as value, Purpose.pur_color FROM Payment left Join Purpose on Payment.purpose_id = Purpose.id left join Category on Purpose.category_id = Category.id where typ_id like 1 GROUP by purpose.id order by Category.id')
     stmt.all(req.params.name, (err, rows) => {
         if (err) {
             res.status(500).json('error')
