@@ -1,19 +1,9 @@
-import FilledInput from '@mui/material/FilledInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import TextField from '@mui/material/TextField';
+import {FilledInput, InputLabel, InputAdornment, FormControl, TextField, MenuItem, Select, Button} from '@mui/material';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Button from '@mui/material/Button';
-
 import axios from 'axios';
-
 import './App.css';
-
 import React, { useEffect } from 'react';
 
 function InputArea() {
@@ -64,8 +54,9 @@ function InputArea() {
 
     useEffect(getCategory, [])
 
+    //If error change !== back to !=
     async function sendData() {
-        if (pur != '' && costs.amount != '') {
+        if (pur !== '' && costs.amount !== '') {
             let dd = String(date.getDate()).padStart(2, '0')
             let mm = String(date.getMonth() + 1).padStart(2, '0')
             let yyyy = date.getFullYear()

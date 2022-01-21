@@ -1,9 +1,6 @@
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-
+import { PieChart, Pie, Cell } from "recharts";
 import React, { useState, useEffect } from 'react';
-
 import axios from 'axios';
-
 import './App.css';
 
 function Cake() {
@@ -34,6 +31,7 @@ function Cake() {
                 setColorInner(temp)
             })
     }
+    
     //Outer
     const getCategory = () => {
         let temp = []
@@ -55,7 +53,6 @@ function Cake() {
     useEffect(() => getCategory(), [])
 
     return (
-
         <PieChart width={450} height={450}>
             <Pie
                 data={dataInner}

@@ -1,13 +1,5 @@
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper }from '@mui/material';
 import React, { useState, useEffect } from 'react';
-
 import axios from 'axios';
 
 function TableObject() {
@@ -27,9 +19,9 @@ function TableObject() {
             .then(response => {
                 let tempRows = []
                 for (let i = 0; i < response.data.length; i++) {
-                    if (response.data[i].typ == 'income' || response.data[i].typ == 'savings') {
+                    if (response.data[i].typ === 'income' || response.data[i].typ === 'savings') {
                         tempRows.push(createData(response.data[i].purpose, response.data[i].category, response.data[i].date, response.data[i].value.toFixed(2) + "€"))
-                    } else if (response.data[i].typ == 'outcome') {
+                    } else if (response.data[i].typ === 'outcome') {
                         tempRows.push(createData(response.data[i].purpose, response.data[i].category, response.data[i].date, "-" + response.data[i].value.toFixed(2) + "€"))
                     }
                 }

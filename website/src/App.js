@@ -1,5 +1,4 @@
 import './App.css';
-
 import InputArea from './InputArea';
 import TableObject from './TableObject';
 import Cake from './Cake';
