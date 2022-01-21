@@ -43,12 +43,10 @@ function Cake() {
                     temp.push(createData(response.data[i].category, response.data[i].value))
                 }
                 setDataOuter(temp)
-                console.log(temp)
                 temp = []
                 for (let i = 0; i < response.data.length; i++) {
                     temp.push(response.data[i].cat_color)
                 }
-                console.log(temp)
                 setColorOuter(temp)
             })
     }
