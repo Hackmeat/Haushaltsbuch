@@ -16,6 +16,7 @@ import axios from 'axios';
 function Diagram() {
 
     const [yearStats, setYearStats] = useState([])
+    const [cat, setCat] = useState([])
 
     const getYearStats = () => {
         var today = new Date();
@@ -25,20 +26,36 @@ function Diagram() {
         for (let m = 0; m < 12; m++) {
             axios.get('http://localhost:3000/month/' + m + '-' + yyyy)
                 .then((response) => {
-                    
                     let date = new Date(1000, m, 1)
-                    let month = date.toLocaleString('default', { month: 'long' });  
-                    let object = {name: month}   
+                    let month = date.toLocaleString('default', { month: 'long' });
+                    let object = { name: month }
                     for (let i = 0; i < response.data.length; i++) {
                         object[response.data[i].category] = response.data[i].value
-                    }  
+                    }
                     temp.push(object)
                 })
+            setYearStats(temp)
         }
-        setYearStats(temp)
     }
 
-    useEffect(() => getYearStats(), [])
+    const getCategory = () => {
+        let temp = []
+        axios.get('http://localhost:3000/categorys')
+            .then((response) => {       
+                for (let i = 0; i < response.data.length; i++) {
+                    let object = {}
+                    object["name"] = response.data[i].category
+                    object["typ_id"] = response.data[i].typ_id
+                    temp.push(object)
+                }
+                setCat(temp)
+            })
+    }
+
+    useEffect(() => {
+        getYearStats()
+        getCategory()
+    }, [])
 
     return (
 
@@ -58,12 +75,22 @@ function Diagram() {
             <YAxis />
             <Tooltip />
             <Legend />
-            {}
-            <Bar dataKey="pv" stackId="a" fill="#8884d8" />
-            <Bar dataKey="amt" stackId="a" fill="#82ca9d" />
-            <Bar dataKey="uv" fill="#ffc658" />
+            {cat.map((cat, index) => {     
+                for (let i = 0; i < yearStats.length; i++) {       
+                    if (yearStats[i][cat.name]) {
+                        if (cat.typ_id == "1") {
+                            console.log(yearStats[i])
+                            console.log(cat.name)     
+                            return (<Bar key={index} dataKey={cat.name} stackId="a" fill={yearStats[i].cat_color} />)
+                        } else if (cat.typ_id == "2") {
+                            return (<Bar key={index} dataKey={cat.name} fill={yearStats[i].cat_color} />)
+                        } else if (cat.typ_id == "3") {
+                            return (<Bar key={index} dataKey={cat.name} stackId="a" fill={yearStats[i].cat_color} />)
+                        }
+                    }
+                }
+            })}
         </BarChart>
-
     );
 }
 
