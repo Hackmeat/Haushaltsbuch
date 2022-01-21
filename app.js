@@ -58,7 +58,7 @@ app.get('/rangeDate/:name', (req, res) => {
 
 //Get all categorys
 app.get('/categorys', (req, res) => {
-    const stmt = db.prepare('SELECT id, category FROM Category')
+    const stmt = db.prepare('SELECT id, category, typ_id FROM Category order by typ_id ')
     stmt.all(req.params.name, (err, rows) => {
         if (err) {
             res.status(500).json('error')
@@ -103,6 +103,19 @@ app.get('/expense/cat', (req, res) => {
         res.status(200).json(rows)
     })
 })
+
+//get data for all Months, seperated in months
+app.get('/month/:name', (req, res) => {
+    const stmt = db.prepare('SELECT Category.category, SUM(Payment.value) as value, Category.cat_color FROM Payment left Join Purpose on Payment.purpose_id = Purpose.id left join Category on Purpose.category_id = Category.id where instr(Payment.date, ?) > 0 GROUP by category.typ_id, category.id')
+    stmt.all(req.params.name, (err, rows) => {
+        if (err) {
+            res.status(500).json('error')
+            return console.error(err.message)
+        }
+        res.status(200).json(rows)
+    })
+})
+
 
 //----------------------------------------------------------------
 //Getting data from the frontend and passing it to the db

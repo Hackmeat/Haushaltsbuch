@@ -1,5 +1,12 @@
-import { PieChart, Pie, Cell } from "recharts";
-import React, { useState, useEffect } from 'react';
+import {
+    PieChart,
+    Pie,
+    Cell
+} from "recharts";
+import React, {
+    useState,
+    useEffect
+} from 'react';
 import axios from 'axios';
 import './App.css';
 
@@ -17,7 +24,7 @@ function Cake() {
 
     //Inner
     const getData = () => {
-        let temp = []  
+        let temp = []
         axios.get('http://localhost:3000/expense/pur')
             .then(response => {
                 for (let i = 0; i < response.data.length; i++) {
@@ -31,7 +38,7 @@ function Cake() {
                 setColorInner(temp)
             })
     }
-    
+
     //Outer
     const getCategory = () => {
         let temp = []

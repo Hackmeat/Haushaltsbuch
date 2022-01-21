@@ -1,10 +1,21 @@
-import {FilledInput, InputLabel, InputAdornment, FormControl, TextField, MenuItem, Select, Button} from '@mui/material';
+import {
+    FilledInput,
+    InputLabel,
+    InputAdornment,
+    FormControl,
+    TextField,
+    MenuItem,
+    Select,
+    Button
+} from '@mui/material';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import axios from 'axios';
 import './App.css';
-import React, { useEffect } from 'react';
+import React, {
+    useEffect
+} from 'react';
 
 function InputArea() {
 
