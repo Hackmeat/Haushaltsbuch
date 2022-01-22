@@ -16,6 +16,7 @@ import axios from 'axios';
 function Diagram() {
 
     const [yearStats, setYearStats] = useState(null)
+
     const [cat, setCat] = useState([])
 
     const getYearStats = () => {
@@ -23,7 +24,7 @@ function Diagram() {
         var yyyy = today.getFullYear();
         let temp = []
         //change to m <= 12
-        for (let m = 1; m <= 1; m++) {
+        for (let m = 1; m <= 12; m++) {
             axios.get('http://localhost:3000/month/' + m + '-' + yyyy)
                 .then((response) => {
                     let date = new Date(1000, m - 1, 1)
@@ -33,8 +34,9 @@ function Diagram() {
                         object[response.data[i].category] = response.data[i].value
                     }
                     temp.push(object)
+                    setYearStats(temp)
                 })
-            setYearStats(temp)
+            
         }
     }
 
@@ -58,23 +60,10 @@ function Diagram() {
         getCategory()      
     }, [])
 
-    const testData = [{
-        Abo: 47.96,
-        Einkommen: 428.2,
-        Games: 4.99,
-        Leben: 260.77,
-        Rückzahlungen: 475.01,
-        Sonstiges: 46.47,
-        Urlaub: 1018.77,
-        Versicherung: 16,
-        name: "January"
-    }]
-
-
     return (
         <div>
             {!yearStats && console.log("loading")}
-            {yearStats &&  (
+            {yearStats && (
                 <BarChart
                     width={800}
                     height={400}
@@ -104,6 +93,7 @@ function Diagram() {
                             }
                         }
                     })}
+                    <Bar dataKey="Abo" stackId="a" fill="#ff00ff" />
                 </BarChart>
             )}
         </div>
