@@ -58,7 +58,7 @@ app.get('/rangeDate/:name', (req, res) => {
 
 //Get all categorys
 app.get('/categorys', (req, res) => {
-    const stmt = db.prepare('SELECT id, category, typ_id FROM Category order by typ_id ')
+    const stmt = db.prepare('SELECT id, category, typ_id, cat_color FROM Category order by typ_id ')
     stmt.all(req.params.name, (err, rows) => {
         if (err) {
             res.status(500).json('error')

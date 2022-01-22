@@ -15,7 +15,7 @@ import axios from 'axios';
 
 function Diagram() {
 
-    const [yearStats, setYearStats] = useState([])
+    const [yearStats, setYearStats] = useState(null)
     const [cat, setCat] = useState([])
 
     const getYearStats = () => {
@@ -23,10 +23,10 @@ function Diagram() {
         var yyyy = today.getFullYear();
         let temp = []
         //change to m <= 12
-        for (let m = 0; m < 12; m++) {
+        for (let m = 1; m <= 1; m++) {
             axios.get('http://localhost:3000/month/' + m + '-' + yyyy)
                 .then((response) => {
-                    let date = new Date(1000, m, 1)
+                    let date = new Date(1000, m - 1, 1)
                     let month = date.toLocaleString('default', { month: 'long' });
                     let object = { name: month }
                     for (let i = 0; i < response.data.length; i++) {
@@ -41,11 +41,12 @@ function Diagram() {
     const getCategory = () => {
         let temp = []
         axios.get('http://localhost:3000/categorys')
-            .then((response) => {       
+            .then((response) => {
                 for (let i = 0; i < response.data.length; i++) {
                     let object = {}
                     object["name"] = response.data[i].category
                     object["typ_id"] = response.data[i].typ_id
+                    object["cat_color"] = response.data[i].cat_color
                     temp.push(object)
                 }
                 setCat(temp)
@@ -54,43 +55,58 @@ function Diagram() {
 
     useEffect(() => {
         getYearStats()
-        getCategory()
+        getCategory()      
     }, [])
 
-    return (
+    const testData = [{
+        Abo: 47.96,
+        Einkommen: 428.2,
+        Games: 4.99,
+        Leben: 260.77,
+        Rückzahlungen: 475.01,
+        Sonstiges: 46.47,
+        Urlaub: 1018.77,
+        Versicherung: 16,
+        name: "January"
+    }]
 
-        <BarChart
-            width={800}
-            height={400}
-            data={yearStats}
-            margin={{
-                top: 20,
-                right: 30,
-                left: 20,
-                bottom: 5
-            }}
-        >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            {cat.map((cat, index) => {     
-                for (let i = 0; i < yearStats.length; i++) {       
-                    if (yearStats[i][cat.name]) {
-                        if (cat.typ_id == "1") {
-                            console.log(yearStats[i])
-                            console.log(cat.name)     
-                            return (<Bar key={index} dataKey={cat.name} stackId="a" fill={yearStats[i].cat_color} />)
-                        } else if (cat.typ_id == "2") {
-                            return (<Bar key={index} dataKey={cat.name} fill={yearStats[i].cat_color} />)
-                        } else if (cat.typ_id == "3") {
-                            return (<Bar key={index} dataKey={cat.name} stackId="a" fill={yearStats[i].cat_color} />)
+
+    return (
+        <div>
+            {!yearStats && console.log("loading")}
+            {yearStats &&  (
+                <BarChart
+                    width={800}
+                    height={400}
+                    data={yearStats}
+                    margin={{
+                        top: 20,
+                        right: 30,
+                        left: 20,
+                        bottom: 5
+                    }}
+                >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    {cat.map((cat, index) => {
+                        for (let i = 0; i < yearStats.length; i++) {
+                            if (yearStats[i][cat.name]) {
+                                if (cat.typ_id == "1") {
+                                    return (<Bar key={index} dataKey={cat.name} stackId="a" fill={cat.cat_color} />)
+                                } else if (cat.typ_id == "2") {
+                                    return (<Bar key={index} dataKey={cat.name} stackId="b" fill={cat.cat_color} />)
+                                } else if (cat.typ_id == "3") {
+                                    return (<Bar key={index} dataKey={cat.name} stackId="a" fill={cat.cat_color} />)
+                                }
+                            }
                         }
-                    }
-                }
-            })}
-        </BarChart>
+                    })}
+                </BarChart>
+            )}
+        </div>
     );
 }
 
