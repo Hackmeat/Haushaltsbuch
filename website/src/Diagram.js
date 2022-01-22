@@ -23,7 +23,6 @@ function Diagram() {
         var today = new Date();
         var yyyy = today.getFullYear();
         let temp = []
-        //change to m <= 12
         for (let m = 1; m <= 12; m++) {
             axios.get('http://localhost:3000/month/' + m + '-' + yyyy)
                 .then((response) => {
@@ -36,7 +35,6 @@ function Diagram() {
                     temp.push(object)
                     setYearStats(temp)
                 })
-            
         }
     }
 
@@ -93,7 +91,6 @@ function Diagram() {
                             }
                         }
                     })}
-                    <Bar dataKey="Abo" stackId="a" fill="#ff00ff" />
                 </BarChart>
             )}
         </div>
