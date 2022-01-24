@@ -16,7 +16,7 @@ let order_by_date = 'Order by Payment.date desc'
 
 //----------------------------------------------------------------
 //Connecting to database
-const db = new sqlite3.Database('./db/' + nico_db, err => {
+const db = new sqlite3.Database('../db/' + nico_db, err => {
     if (err) {
         return console.error(err.message)
     }
