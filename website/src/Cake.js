@@ -24,8 +24,11 @@ function Cake() {
 
     //Inner
     const getData = () => {
+        var today = new Date();
+        var yyyy = today.getFullYear();
+        var mm = today.getMonth() + 1;
         let temp = []
-        axios.get('http://localhost:3000/expense/pur')
+        axios.get('http://localhost:3000/expense/pur/' + mm + "-" + yyyy)
             .then(response => {
                 for (let i = 0; i < response.data.length; i++) {
                     temp.push(createData(response.data[i].purpose, response.data[i].value))
@@ -42,7 +45,10 @@ function Cake() {
     //Outer
     const getCategory = () => {
         let temp = []
-        axios.get('http://localhost:3000/expense/cat')
+        var today = new Date();
+        var yyyy = today.getFullYear();
+        var mm = today.getMonth() + 1;
+        axios.get('http://localhost:3000/expense/cat/' + mm + "-" + yyyy)
             .then(response => {
                 for (let i = 0; i < response.data.length; i++) {
                     temp.push(createData(response.data[i].category, response.data[i].value))
