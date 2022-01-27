@@ -65,33 +65,63 @@ function Cake() {
     useEffect(() => getData(), [])
     useEffect(() => getCategory(), [])
 
+    //2 Divs seperate piecharts
+
     return (
-        <PieChart width={450} height={450}>
-            <Pie
-                data={dataInner}
-                dataKey="value"
-                cx={220}
-                cy={220}
-                outerRadius={180}
-                fill="#82ca9d"
-            >
-                {dataInner.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={colorInner[index % colorInner.length]} />
-                ))}
-            </Pie>
-            <Pie
-                data={dataOuter}
-                dataKey="value"
-                cx={220}
-                cy={220}
-                innerRadius={185}
-                outerRadius={195}
-            >
-                {dataOuter.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={colorOuter[index % colorOuter.length]} />
-                ))}
-            </Pie>
-        </PieChart>
+        <>
+            <PieChart width={450} height={450}>
+                <Pie
+                    data={dataInner}
+                    dataKey="value"
+                    cx={220}
+                    cy={220}
+                    outerRadius={180}
+                    fill="#82ca9d"
+                >
+                    {dataInner.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={colorInner[index % colorInner.length]} />
+                    ))}
+                </Pie>
+                <Pie
+                    data={dataOuter}
+                    dataKey="value"
+                    cx={220}
+                    cy={220}
+                    innerRadius={185}
+                    outerRadius={195}
+                >
+                    {dataOuter.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={colorOuter[index % colorOuter.length]} />
+                    ))}
+                </Pie>
+            </PieChart>
+            <PieChart width={850} height={850}>
+                <Pie
+                    data={dataInner}
+                    dataKey="value"
+                    cx={750}
+                    cy={0}
+                    outerRadius={180}
+                    fill="#82ca9d"
+                >
+                    {dataInner.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={colorInner[index % colorInner.length]} />
+                    ))}
+                </Pie>
+                <Pie
+                    data={dataOuter}
+                    dataKey="value"
+                    cx={750}
+                    cy={0}
+                    innerRadius={185}
+                    outerRadius={195}
+                >
+                    {dataOuter.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={colorOuter[index % colorOuter.length]} />
+                    ))}
+                </Pie>
+            </PieChart>
+        </>
     );
 }
 
