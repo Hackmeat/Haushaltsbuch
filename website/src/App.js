@@ -11,7 +11,7 @@ function App() {
             <div className="windowObject">
                 <TableObject />
             </div>
-            <div className="windowObject">
+            <div className="inputWindowObject">
                 <InputArea />
             </div>
             <div className="windowObject">

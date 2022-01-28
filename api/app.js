@@ -104,6 +104,30 @@ app.get('/expense/cat/:name', (req, res) => {
     })
 })
 
+//get all income for one month 
+app.get('/income/:name', (req, res) => {
+    const stmt = db.prepare('SELECT Category.category, ROUND(SUM(Payment.value), 2) as value, Category.cat_color FROM Payment left Join Purpose on Payment.purpose_id = Purpose.id left join Category on Purpose.category_id = Category.id where typ_id like 2 and instr(Payment.date, ?) > 0 GROUP by category.id')
+    stmt.all(req.params.name, (err, rows) => {
+        if (err) {
+            res.status(500).json('error')
+            return console.error(err.message)
+        }
+        res.status(200).json(rows)
+    })
+})
+
+//get all savings for one month 
+app.get('/expense/:name', (req, res) => {
+    const stmt = db.prepare('SELECT category.typ_id, ROUND(SUM(Payment.value), 2) as value, Category.cat_color FROM Payment left Join Purpose on Payment.purpose_id = Purpose.id left join Category on Purpose.category_id = Category.id where typ_id not like 2 and instr(Payment.date, ?) > 0 GROUP by typ_id')
+    stmt.all(req.params.name, (err, rows) => {
+        if (err) {
+            res.status(500).json('error')
+            return console.error(err.message)
+        }
+        res.status(200).json(rows)
+    })
+})
+
 //get data for all Months, seperated in months
 app.get('/month/:name', (req, res) => {
     const stmt = db.prepare('SELECT Category.category, ROUND(SUM(Payment.value), 2) as value, Category.cat_color FROM Payment left Join Purpose on Payment.purpose_id = Purpose.id left join Category on Purpose.category_id = Category.id where instr(Payment.date, ?) > 0 GROUP by category.typ_id, category.id')
