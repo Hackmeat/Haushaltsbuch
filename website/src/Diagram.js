@@ -16,7 +16,6 @@ import axios from 'axios';
 function Diagram() {
 
     const [yearStats, setYearStats] = useState(null)
-
     const [cat, setCat] = useState([])
 
     const getYearStats = () => {
@@ -60,7 +59,7 @@ function Diagram() {
 
     return (
         <div>
-            {!yearStats && console.log("loading")}
+            {!yearStats && <p>Loading</p>}
             {yearStats && (
                 <BarChart
                     width={800}

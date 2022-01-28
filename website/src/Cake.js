@@ -12,7 +12,6 @@ import './App.css';
 
 function Cake() {
 
-
     const [colorInner, setColorInner] = useState([])
     const [dataInner, setDataInner] = useState([])
     const [colorOuter, setColorOuter] = useState([])
@@ -26,13 +25,17 @@ function Cake() {
         return { name, value }
     }
 
-    //Inner
-    const getPurpose = () => {
+    function dateRange(){
         var today = new Date();
         var yyyy = today.getFullYear();
         var mm = today.getMonth() + 1;
+        return mm + "-" + yyyy
+    }
+
+    //Inner
+    const getPurpose = () => {    
         let temp = []
-        axios.get('http://localhost:3000/expense/pur/' + mm + "-" + yyyy)
+        axios.get('http://localhost:3000/expense/pur/' + dateRange())
             .then(response => {
                 for (let i = 0; i < response.data.length; i++) {
                     temp.push(createData(response.data[i].purpose, response.data[i].value))
@@ -49,10 +52,7 @@ function Cake() {
     //Outer
     const getCategory = () => {
         let temp = []
-        var today = new Date();
-        var yyyy = today.getFullYear();
-        var mm = today.getMonth() + 1;
-        axios.get('http://localhost:3000/expense/cat/' + mm + "-" + yyyy)
+        axios.get('http://localhost:3000/expense/cat/' + dateRange())
             .then(response => {
                 for (let i = 0; i < response.data.length; i++) {
                     temp.push(createData(response.data[i].category, response.data[i].value))
@@ -67,11 +67,8 @@ function Cake() {
     }
 
     const getIncome = () => {
-        var today = new Date();
-        var yyyy = today.getFullYear();
-        var mm = today.getMonth() + 1;
         let temp = []
-        axios.get('http://localhost:3000/income/' + mm + "-" + yyyy)
+        axios.get('http://localhost:3000/income/' + dateRange())
             .then(response => {
                 for (let i = 0; i < response.data.length; i++) {
                     temp.push(createData(response.data[i].category, response.data[i].value))
@@ -86,11 +83,8 @@ function Cake() {
     }
 
     const getExpense = () => {
-        var today = new Date();
-        var yyyy = today.getFullYear();
-        var mm = today.getMonth() + 1;
         let temp = []
-        axios.get('http://localhost:3000/expense/' + mm + "-" + yyyy)
+        axios.get('http://localhost:3000/expense/' + dateRange())
             .then(response => {
                 for (let i = 0; i < response.data.length; i++) {
                     temp.push(createData(response.data[i].typ_id, response.data[i].value))
@@ -104,12 +98,13 @@ function Cake() {
             })
     }
 
-    useEffect(() => getPurpose(), [])
-    useEffect(() => getCategory(), [])
-    useEffect(() => getIncome(), [])
-    useEffect(() => getExpense(), [])
-
-    //2 Divs seperate piecharts
+    useEffect(() => {
+        getIncome()
+        getExpense()
+        getCategory()
+        getPurpose()
+    }, [])
+    
 
     return (
         <>

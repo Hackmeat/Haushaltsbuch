@@ -65,7 +65,6 @@ function InputArea() {
 
     useEffect(getCategory, [])
 
-    //If error change !== back to !=
     async function sendData() {
         if (pur !== '' && costs.amount !== '') {
             let dd = String(date.getDate()).padStart(2, '0')
