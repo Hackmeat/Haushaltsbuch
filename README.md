@@ -1,11 +1,19 @@
-# 
+# Finace Tracking App
 
-## Start api 
+By Nico Beulich
 
-cd haushaltsbuch/api
-node app.js
+## Table of contents
+* [General info](#general-info)
+* [Setup](#setup)
 
-## Start react app
+## General info
 
-cd haushaltsbuch/website
-npm start
+A project to track your finances, see the development of your investments and more coming soon!
+
+## Setup 
+```
+$ cd cd haushaltsbuch/api
+$ node app.js
+$ cd haushaltsbuch/website
+$ npm start
+```

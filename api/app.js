@@ -8,7 +8,6 @@ const jsonParser = bodyParser.json()
 var cors = require('cors')
 app.use(cors())
 
-let test_db = 'haushaltsbuch_test.db'
 let nico_db = 'haushaltsbuch_nico_beulich.db'
 
 let full_db = 'SELECT * FROM Payment left Join Purpose on Payment.purpose_id = Purpose.id left Join Category on Purpose.category_id = Category.id left JOIN Typ on Category.typ_id = Typ.id'
