@@ -1,3 +1,7 @@
+//--------------------------------------------------------------------------------------------------------------------
+//---------Table with name, category, date and cost, transforming to € currency, only displays current month----------
+//--------------------------------------------------------------------------------------------------------------------
+//Imports
 import {
     Table,
     TableBody,
@@ -15,12 +19,18 @@ import axios from 'axios';
 
 function TableObject() {
 
+//--------------------------------------------------------------------------------------------------------------------
+//Initialization
     const [rows, setRows] = useState([])
 
+//--------------------------------------------------------------------------------------------------------------------
+//Displaying table objects
+//Data structure
     function createData(detail, category, date, amount) {
         return { detail, category, date, amount };
     }
 
+//Get data from db
     const getRows = () => {
         var today = new Date();
         var mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -40,8 +50,12 @@ function TableObject() {
             });
     }
 
+//--------------------------------------------------------------------------------------------------------------------
+//Gethering all data
     useEffect(() => getRows(), [])
 
+//--------------------------------------------------------------------------------------------------------------------
+//Rendering
     return (
         <TableContainer component={Paper} sx={{ maxWidth: '40vw', maxHeight: '46vh', ml: '5vw', mt: '2vh' }}>
             <Table size="small">

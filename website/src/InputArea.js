@@ -1,3 +1,7 @@
+//--------------------------------------------------------------------------------------------------------------------
+//------Place where you add data to your db, category and purpose can be selected, and numeric value can be set-------
+//--------------------------------------------------------------------------------------------------------------------
+//Imports
 import {
     FilledInput,
     InputLabel,
@@ -19,6 +23,8 @@ import React, {
 
 function InputArea() {
 
+//--------------------------------------------------------------------------------------------------------------------
+//Initialization
     const [costs, setCosts] = React.useState({
         amount: '',
     });
@@ -49,6 +55,9 @@ function InputArea() {
         return !isNaN(num)
     }
 
+//--------------------------------------------------------------------------------------------------------------------
+//Getting all the data
+//All categorys
     function getCategory() {
         axios.get('http://localhost:3000/categorys')
             .then(response => {
@@ -56,6 +65,7 @@ function InputArea() {
             });
     }
 
+//All purposes
     function getPurpose(index) {
         axios.get('http://localhost:3000/purposes/' + index)
             .then(response => {
@@ -63,8 +73,8 @@ function InputArea() {
             });
     }
 
-    useEffect(getCategory, [])
-
+//--------------------------------------------------------------------------------------------------------------------
+//Send data to the database
     async function sendData() {
         if (pur !== '' && costs.amount !== '') {
             let dd = String(date.getDate()).padStart(2, '0')
@@ -82,7 +92,12 @@ function InputArea() {
         }
     }
 
+//--------------------------------------------------------------------------------------------------------------------
+//Get context items
+    useEffect(getCategory, [])
 
+//--------------------------------------------------------------------------------------------------------------------
+//Rendering
     return (
         <div id="inputFormat">
             <div className="inputObject">

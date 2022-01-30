@@ -1,11 +1,14 @@
+//--------------------------------------------------------------------------------------------------------------------
+//Imports
 import './App.css';
 import InputArea from './InputArea';
 import TableObject from './TableObject';
 import Cake from './Cake';
 import Diagram from './Diagram';
 
+//--------------------------------------------------------------------------------------------------------------------
+//Rendering
 function App() {
-
     return (
         <div id="window">
             <div className="windowObject">

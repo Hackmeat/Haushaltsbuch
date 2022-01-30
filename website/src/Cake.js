@@ -1,3 +1,7 @@
+//--------------------------------------------------------------------------------------------------------------------
+//---------Displaying piecharts, one for expense [purpose, category], one for total finance [income, expense]---------
+//--------------------------------------------------------------------------------------------------------------------
+//Imports
 import {
     PieChart,
     Pie,
@@ -12,6 +16,8 @@ import './App.css';
 
 function Cake() {
 
+//--------------------------------------------------------------------------------------------------------------------
+//Initialization
     const [colorInner, setColorInner] = useState([])
     const [dataInner, setDataInner] = useState([])
     const [colorOuter, setColorOuter] = useState([])
@@ -32,7 +38,9 @@ function Cake() {
         return mm + "-" + yyyy
     }
 
-    //Inner
+//--------------------------------------------------------------------------------------------------------------------
+//Categorys and Purposes cake 
+//Inner 
     const getPurpose = () => {    
         let temp = []
         axios.get('http://localhost:3000/expense/pur/' + dateRange())
@@ -49,7 +57,7 @@ function Cake() {
             })
     }
 
-    //Outer
+//Outer
     const getCategory = () => {
         let temp = []
         axios.get('http://localhost:3000/expense/cat/' + dateRange())
@@ -66,6 +74,9 @@ function Cake() {
             })
     }
 
+//--------------------------------------------------------------------------------------------------------------------
+//Income and expenses cake
+//Inner
     const getIncome = () => {
         let temp = []
         axios.get('http://localhost:3000/income/' + dateRange())
@@ -82,6 +93,7 @@ function Cake() {
             })
     }
 
+//Outer
     const getExpense = () => {
         let temp = []
         let setColor = false
@@ -114,6 +126,8 @@ function Cake() {
             })
     }
 
+//--------------------------------------------------------------------------------------------------------------------
+//gethering all data
     useEffect(() => {
         getIncome()      
         getCategory()
@@ -121,7 +135,8 @@ function Cake() {
         getExpense()
     }, [])
     
-
+//--------------------------------------------------------------------------------------------------------------------
+//Rendering
     return (
         <>
             <div className="pieDiv">
@@ -183,7 +198,3 @@ function Cake() {
 }
 
 export default Cake;
-
-/*
- 
-            */

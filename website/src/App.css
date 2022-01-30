@@ -62,6 +62,12 @@ code {
   align-items: flex-start;
 }
 
+#inputFormat {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .windowObject {
   min-width: 650px;
   min-height: 300px;
@@ -69,11 +75,6 @@ code {
   width: 48vw;
 }
 
-#inputFormat {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
 
 .inputObject {
   margin-left: 2vw;

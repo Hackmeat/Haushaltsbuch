@@ -1,3 +1,7 @@
+//--------------------------------------------------------------------------------------------------------------------
+//--------Displaying the diagramm chart, showing all months with expense in categorys and income with a legend--------
+//--------------------------------------------------------------------------------------------------------------------
+//Imports
 import React, {
     useState,
     useEffect
@@ -15,9 +19,14 @@ import axios from 'axios';
 
 function Diagram() {
 
+//--------------------------------------------------------------------------------------------------------------------
+//Initialization
     const [yearStats, setYearStats] = useState(null)
     const [cat, setCat] = useState([])
 
+//--------------------------------------------------------------------------------------------------------------------
+//Get data
+//getting the years statistics seperated into months
     const getYearStats = () => {
         var today = new Date();
         var yyyy = today.getFullYear();
@@ -37,6 +46,7 @@ function Diagram() {
         }
     }
 
+//Getting all the categorys
     const getCategory = () => {
         let temp = []
         axios.get('http://localhost:3000/categorys')
@@ -52,11 +62,14 @@ function Diagram() {
             })
     }
 
+//Call data gethering fnctions
     useEffect(() => {
         getYearStats()
         getCategory()      
     }, [])
 
+//--------------------------------------------------------------------------------------------------------------------
+//Rendering
     return (
         <div>
             {!yearStats && <p>Loading</p>}
