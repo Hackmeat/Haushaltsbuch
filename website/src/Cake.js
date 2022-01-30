@@ -84,25 +84,41 @@ function Cake() {
 
     const getExpense = () => {
         let temp = []
+        let setColor = false
+        let totalExp = 0
+        let totalInc = 0
         axios.get('http://localhost:3000/expense/' + dateRange())
             .then(response => {
                 for (let i = 0; i < response.data.length; i++) {
                     temp.push(createData(response.data[i].typ_id, response.data[i].value))
+                    totalExp += response.data[i].value
+                }
+                for(let i = 0; i < income.length; i++){
+                    totalInc += income[i].value
+                }
+                if(totalInc > totalExp){           
+                    totalExp -= totalInc
+                    temp.push(createData(4, totalExp))
+                    setColor = true
                 }
                 setExpense(temp)
                 temp = []
                 for (let i = 0; i < response.data.length; i++) {
                     temp.push(response.data[i].cat_color)
                 }
+                if(setColor){
+                    setColor = false
+                    temp.push("#929292")
+                }
                 setExpenseColor(temp)
             })
     }
 
     useEffect(() => {
-        getIncome()
-        getExpense()
+        getIncome()      
         getCategory()
         getPurpose()
+        getExpense()
     }, [])
     
 
