@@ -13,9 +13,9 @@ A project to track your finances, see the development of your investments and mo
 
 ## Features
 
--Monthly expense tracking
--Visualizing expense and income
--yearly tracking separated into months containing date to visualize
+- Monthly expense tracking
+- Visualizing expense and income
+- yearly tracking separated into months containing date to visualize
 
 ## Setup 
 ```
