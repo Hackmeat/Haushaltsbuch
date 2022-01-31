@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------------------------
 //Imports
 import './App.css';
-import InputArea from './InputArea';
-import TableObject from './TableObject';
-import Cake from './Cake';
-import Diagram from './Diagram';
+import InputArea from './components/Finance/InputArea';
+import TableObject from './components/Finance/TableObject';
+import Cake from './components/Finance/Cake';
+import Diagram from './components/Finance/Diagram';
 
 //--------------------------------------------------------------------------------------------------------------------
 //Rendering

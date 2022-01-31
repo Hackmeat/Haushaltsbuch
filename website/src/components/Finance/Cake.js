@@ -12,7 +12,6 @@ import React, {
     useEffect
 } from 'react';
 import axios from 'axios';
-import './App.css';
 
 function Cake() {
 
@@ -108,7 +107,7 @@ function Cake() {
                 for(let i = 0; i < income.length; i++){
                     totalInc += income[i].value
                 }
-                if(totalInc > totalExp){           
+                if(totalInc > totalExp){        
                     totalExp -= totalInc
                     temp.push(createData(4, totalExp))
                     setColor = true

@@ -16,7 +16,6 @@ import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import axios from 'axios';
-import './App.css';
 import React, {
     useEffect
 } from 'react';
