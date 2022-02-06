@@ -19,14 +19,14 @@ import axios from 'axios';
 
 function Diagram() {
 
-//--------------------------------------------------------------------------------------------------------------------
-//Initialization
+    //--------------------------------------------------------------------------------------------------------------------
+    //Initialization
     const [yearStats, setYearStats] = useState(null)
     const [cat, setCat] = useState([])
 
-//--------------------------------------------------------------------------------------------------------------------
-//Get data
-//getting the years statistics seperated into months
+    //--------------------------------------------------------------------------------------------------------------------
+    //Get data
+    //getting the years statistics seperated into months
     const getYearStats = () => {
         var today = new Date();
         var yyyy = today.getFullYear();
@@ -46,7 +46,7 @@ function Diagram() {
         }
     }
 
-//Getting all the categorys
+    //Getting all the categorys
     const getCategory = () => {
         let temp = []
         axios.get('http://localhost:3000/categorys')
@@ -62,14 +62,15 @@ function Diagram() {
             })
     }
 
-//Call data gethering fnctions
+    //Call data gethering fnctions
     useEffect(() => {
         getYearStats()
-        getCategory()      
+        getCategory()
     }, [])
 
-//--------------------------------------------------------------------------------------------------------------------
-//Rendering
+    //--------------------------------------------------------------------------------------------------------------------
+    //Rendering
+    //TODO: should show more then just one month
     return (
         <div>
             {!yearStats && <p>Loading</p>}
@@ -91,6 +92,7 @@ function Diagram() {
                     <Tooltip />
                     <Legend />
                     {cat.map((cat, index) => {
+                        console.log(yearStats)
                         for (let i = 0; i < yearStats.length; i++) {
                             if (yearStats[i][cat.name]) {
                                 if (cat.typ_id == "1") {
