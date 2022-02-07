@@ -57,7 +57,7 @@ function TableObject() {
 //--------------------------------------------------------------------------------------------------------------------
 //Rendering
     return (
-        <TableContainer component={Paper} sx={{ maxWidth: '40vw', maxHeight: '46vh', ml: '5vw', mt: '2vh' }}>
+        <TableContainer component={Paper} sx={{ width: '100%', maxHeight: '46vh', mt: '2vh' }}>
             <Table size="small">
                 <TableHead>
                     <TableRow>

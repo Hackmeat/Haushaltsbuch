@@ -56,7 +56,6 @@ function Diagram() {
                     object["cat_color"] = response.data[i].cat_color
                     temp.push(object)
                 }
-                console.log(temp)
                 setCat(temp)
             })
     }

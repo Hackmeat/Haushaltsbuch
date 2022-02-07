@@ -104,7 +104,6 @@ function Cake() {
                     temp.push(createData(response.data[i].typ_id, response.data[i].value))
                     totalExp += response.data[i].value
                 }
-
 //TODO: show how much money is still left
 
                 for(let i = 0; i < income.length; i++){
