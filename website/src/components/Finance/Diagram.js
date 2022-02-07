@@ -71,6 +71,7 @@ function Diagram() {
     //--------------------------------------------------------------------------------------------------------------------
     //Rendering
     //TODO: should show more then just one month
+    //https://stackoverflow.com/questions/65663582/bar-items-in-recharts-stacked-bar-graph-do-not-render-when-being-returned-throug
     return (
         <div>
             {!yearStats && <p>Loading</p>}
