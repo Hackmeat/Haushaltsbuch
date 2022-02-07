@@ -73,8 +73,8 @@ function Diagram() {
             {!yearStats && <p>Loading</p>}
             {yearStats && (
                 <BarChart
-                    width={800}
-                    height={400}
+                    width={900}
+                    height={450}
                     data={yearStats}
                     margin={{
                         top: 20,

@@ -6,7 +6,7 @@ import Nav from './Nav';
 
 //--------------------------------------------------------------------------------------------------------------------
 //Rendering
-function Finance() {
+function Debts() {
     return (
         <>
             <Nav />
@@ -15,4 +15,4 @@ function Finance() {
     );
 }
 
-export default Finance;
+export default Debts;
