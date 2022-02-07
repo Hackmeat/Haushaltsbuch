@@ -46,8 +46,6 @@ code {
   display: flex;
   flex-Direction: row;
   flex-wrap: wrap;
-  flex: 50% 0 0;
-  height: 50vh;
   align-items: flex-start;
 }
 
@@ -59,7 +57,7 @@ code {
 
 .windowObject {
   flex: 50% 0 0;
-  height: 50vh;
+  height: 50%;
 }
 
 @media screen and (max-width: 600px) {
@@ -88,4 +86,8 @@ code {
   margin-top: 1vh;
   padding: none;
   width: 400px;
+}
+
+#navDiv {
+  width: 100%;
 }
