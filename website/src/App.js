@@ -10,6 +10,7 @@ import Diagram from './components/Finance/Diagram';
 //Rendering
 //TODO: Routing
 //https://stackoverflow.com/questions/65663582/bar-items-in-recharts-stacked-bar-graph-do-not-render-when-being-returned-throug
+//Change localhost link - nopt hardcoded
 function App() {
     return (
         <div id="window">

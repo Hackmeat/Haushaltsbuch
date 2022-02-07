@@ -27,23 +27,21 @@ function Diagram() {
     //--------------------------------------------------------------------------------------------------------------------
     //Get data
     //getting the years statistics seperated into months
-    const getYearStats = () => {
+    const getYearStats = async () => {
         var today = new Date();
         var yyyy = today.getFullYear();
         let temp = []
         for (let m = 1; m <= 12; m++) {
-            axios.get('http://localhost:3000/month/' + m + '-' + yyyy)
-                .then((response) => {
-                    let date = new Date(1000, m - 1, 1)
-                    let month = date.toLocaleString('default', { month: 'long' });
-                    let object = { name: month }
-                    for (let i = 0; i < response.data.length; i++) {
-                        object[response.data[i].category] = response.data[i].value
-                    }
-                    temp.push(object)
-                    setYearStats(temp)
-                })
+            const response = await axios.get('http://localhost:3000/month/' + m + '-' + yyyy)          
+            let date = new Date(1000, m - 1, 1)
+            let month = date.toLocaleString('default', { month: 'short' });
+            let object = { name: month }
+            for (let i = 0; i < response.data.length; i++) {
+                object[response.data[i].category] = response.data[i].value
+            }
+            temp.push(object)
         }
+        setYearStats(temp)
     }
 
     //Getting all the categorys
@@ -58,6 +56,7 @@ function Diagram() {
                     object["cat_color"] = response.data[i].cat_color
                     temp.push(object)
                 }
+                console.log(temp)
                 setCat(temp)
             })
     }
@@ -70,8 +69,6 @@ function Diagram() {
 
     //--------------------------------------------------------------------------------------------------------------------
     //Rendering
-    //TODO: should show more then just one month
-    //https://stackoverflow.com/questions/65663582/bar-items-in-recharts-stacked-bar-graph-do-not-render-when-being-returned-throug
     return (
         <div>
             {!yearStats && <p>Loading</p>}
@@ -93,7 +90,6 @@ function Diagram() {
                     <Tooltip />
                     <Legend />
                     {cat.map((cat, index) => {
-                        console.log(yearStats)
                         for (let i = 0; i < yearStats.length; i++) {
                             if (yearStats[i][cat.name]) {
                                 if (cat.typ_id == "1") {

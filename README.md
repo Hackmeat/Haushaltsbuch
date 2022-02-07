@@ -19,7 +19,7 @@ A project to track your finances, see the development of your investments and mo
 
 ## Setup 
 ```
-$ cd cd haushaltsbuch/api
+$ cd haushaltsbuch/api
 $ node app.js
 $ cd haushaltsbuch/website
 $ npm start
