@@ -23,6 +23,8 @@ function TableObject() {
 //Initialization
     const [rows, setRows] = useState([])
 
+    var api = 'http://localhost:3000/' 
+
 //--------------------------------------------------------------------------------------------------------------------
 //Displaying table objects
 //Data structure
@@ -36,7 +38,7 @@ function TableObject() {
         var mm = String(today.getMonth() + 1).padStart(2, '0');
         var yyyy = today.getFullYear();
         today = mm + "-" + yyyy
-        axios.get('http://localhost:3000/rangeDate/' + today)
+        axios.get(api + 'rangeDate/' + today)
             .then(response => {
                 let tempRows = []
                 for (let i = 0; i < response.data.length; i++) {

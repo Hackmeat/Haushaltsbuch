@@ -24,6 +24,8 @@ function Diagram() {
     const [yearStats, setYearStats] = useState(null)
     const [cat, setCat] = useState([])
 
+    var api = 'http://localhost:3000/' 
+
     //--------------------------------------------------------------------------------------------------------------------
     //Get data
     //getting the years statistics seperated into months
@@ -32,7 +34,7 @@ function Diagram() {
         var yyyy = today.getFullYear();
         let temp = []
         for (let m = 1; m <= 12; m++) {
-            const response = await axios.get('http://localhost:3000/month/' + m + '-' + yyyy)          
+            const response = await axios.get(api + 'month/' + m + '-' + yyyy)          
             let date = new Date(1000, m - 1, 1)
             let month = date.toLocaleString('default', { month: 'short' });
             let object = { name: month }
@@ -47,7 +49,7 @@ function Diagram() {
     //Getting all the categorys
     const getCategory = () => {
         let temp = []
-        axios.get('http://localhost:3000/categorys')
+        axios.get(api + 'categorys')
             .then((response) => {
                 for (let i = 0; i < response.data.length; i++) {
                     let object = {}

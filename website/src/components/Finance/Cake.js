@@ -5,7 +5,8 @@
 import {
     PieChart,
     Pie,
-    Cell
+    Cell,
+    Tooltip
 } from "recharts";
 import React, {
     useState,
@@ -26,6 +27,8 @@ function Cake() {
     const [expense, setExpense] = useState([])
     const [expenseColor, setExpenseColor] = useState([])
 
+    var api = 'http://localhost:3000/' 
+
     function createData(name, value) {
         return { name, value }
     }
@@ -42,7 +45,7 @@ function Cake() {
 //Inner 
     const getPurpose = () => {    
         let temp = []
-        axios.get('http://localhost:3000/expense/pur/' + dateRange())
+        axios.get(api + 'expense/pur/' + dateRange())
             .then(response => {
                 for (let i = 0; i < response.data.length; i++) {
                     temp.push(createData(response.data[i].purpose, response.data[i].value))
@@ -59,7 +62,7 @@ function Cake() {
 //Outer
     const getCategory = () => {
         let temp = []
-        axios.get('http://localhost:3000/expense/cat/' + dateRange())
+        axios.get(api + 'expense/cat/' + dateRange())
             .then(response => {
                 for (let i = 0; i < response.data.length; i++) {
                     temp.push(createData(response.data[i].category, response.data[i].value))
@@ -78,7 +81,7 @@ function Cake() {
 //Inner
     const getIncome = () => {
         let temp = []
-        axios.get('http://localhost:3000/income/' + dateRange())
+        axios.get(api + 'income/' + dateRange())
             .then(response => {
                 for (let i = 0; i < response.data.length; i++) {
                     temp.push(createData(response.data[i].category, response.data[i].value))
@@ -98,7 +101,7 @@ function Cake() {
         let setColor = false
         let totalExp = 0
         let totalInc = 0
-        axios.get('http://localhost:3000/expense/' + dateRange())
+        axios.get(api + 'expense/' + dateRange())
             .then(response => {
                 for (let i = 0; i < response.data.length; i++) {
                     temp.push(createData(response.data[i].typ_id, response.data[i].value))
@@ -166,6 +169,7 @@ function Cake() {
                             <Cell key={`cell-${index}`} fill={colorOuter[index % colorOuter.length]} />
                         ))}
                     </Pie>
+                    <Tooltip />
                 </PieChart>
                 <PieChart width={400} height={400}>
                     <Pie
@@ -192,6 +196,7 @@ function Cake() {
                             <Cell key={`cell-${index}`} fill={expenseColor[index % expenseColor.length]} />
                         ))}
                     </Pie>
+                    <Tooltip />
                 </PieChart>
             </div>
         </>

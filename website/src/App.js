@@ -10,7 +10,6 @@ import Debts from './Debts'
 
 //--------------------------------------------------------------------------------------------------------------------
 //Rendering
-//Change localhost link - nopt hardcoded
 class App extends Component {
     render() {
         return (

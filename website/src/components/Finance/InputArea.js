@@ -33,6 +33,8 @@ function InputArea() {
     const [menuItemsCat, setMenuItemsCat] = React.useState([])
     const [menuItemsPur, setMenuItemsPur] = React.useState([])
 
+    var api = 'http://localhost:3000/' 
+
     const handleChangeCost = (prop) => (event) => {
         setCosts({ ...costs, [prop]: event.target.value });
     };
@@ -58,7 +60,7 @@ function InputArea() {
 //Getting all the data
 //All categorys
     function getCategory() {
-        axios.get('http://localhost:3000/categorys')
+        axios.get(api + 'categorys')
             .then(response => {
                 setMenuItemsCat(response.data)
             });
@@ -66,7 +68,7 @@ function InputArea() {
 
 //All purposes
     function getPurpose(index) {
-        axios.get('http://localhost:3000/purposes/' + index)
+        axios.get(api + 'purposes/' + index)
             .then(response => {
                 setMenuItemsPur(response.data)
             });
@@ -81,7 +83,7 @@ function InputArea() {
             let yyyy = date.getFullYear()
             let dateFormat = dd + "-" + mm + "-" + yyyy
 
-            const res = await axios.post('http://localhost:3000/add', {
+            const res = await axios.post(api + 'add', {
                 "purpose": pur,
                 "value": costs.amount,
                 "date": dateFormat

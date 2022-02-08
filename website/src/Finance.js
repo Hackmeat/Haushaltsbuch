@@ -10,8 +10,6 @@ import Nav from './Nav';
 
 //--------------------------------------------------------------------------------------------------------------------
 //Rendering
-//TODO: Routing
-//
 //Change localhost link - nopt hardcoded
 function Finance() {
     return (
