@@ -19,20 +19,20 @@ import axios from 'axios';
 
 function TableObject() {
 
-//--------------------------------------------------------------------------------------------------------------------
-//Initialization
+    //--------------------------------------------------------------------------------------------------------------------
+    //Initialization
     const [rows, setRows] = useState([])
 
-    var api = 'http://localhost:3000/' 
+    var api = 'http://localhost:3000/'
 
-//--------------------------------------------------------------------------------------------------------------------
-//Displaying table objects
-//Data structure
+    //--------------------------------------------------------------------------------------------------------------------
+    //Displaying table objects
+    //Data structure
     function createData(detail, category, date, amount) {
         return { detail, category, date, amount };
     }
 
-//Get data from db
+    //Get data from db
     const getRows = () => {
         var today = new Date();
         var mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -52,12 +52,12 @@ function TableObject() {
             });
     }
 
-//--------------------------------------------------------------------------------------------------------------------
-//Gethering all data
+    //--------------------------------------------------------------------------------------------------------------------
+    //Gethering all data
     useEffect(() => getRows(), [])
 
-//--------------------------------------------------------------------------------------------------------------------
-//Rendering
+    //--------------------------------------------------------------------------------------------------------------------
+    //Rendering
     return (
         <TableContainer component={Paper} sx={{ width: '100%', maxHeight: '46vh', mt: '2vh' }}>
             <Table size="small">

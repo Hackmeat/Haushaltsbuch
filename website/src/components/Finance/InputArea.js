@@ -22,8 +22,8 @@ import React, {
 
 function InputArea() {
 
-//--------------------------------------------------------------------------------------------------------------------
-//Initialization
+    //--------------------------------------------------------------------------------------------------------------------
+    //Initialization
     const [costs, setCosts] = React.useState({
         amount: '',
     });
@@ -33,7 +33,7 @@ function InputArea() {
     const [menuItemsCat, setMenuItemsCat] = React.useState([])
     const [menuItemsPur, setMenuItemsPur] = React.useState([])
 
-    var api = 'http://localhost:3000/' 
+    var api = 'http://localhost:3000/'
 
     const handleChangeCost = (prop) => (event) => {
         setCosts({ ...costs, [prop]: event.target.value });
@@ -56,9 +56,9 @@ function InputArea() {
         return !isNaN(num)
     }
 
-//--------------------------------------------------------------------------------------------------------------------
-//Getting all the data
-//All categorys
+    //--------------------------------------------------------------------------------------------------------------------
+    //Getting all the data
+    //All categorys
     function getCategory() {
         axios.get(api + 'categorys')
             .then(response => {
@@ -66,7 +66,7 @@ function InputArea() {
             });
     }
 
-//All purposes
+    //All purposes
     function getPurpose(index) {
         axios.get(api + 'purposes/' + index)
             .then(response => {
@@ -74,8 +74,8 @@ function InputArea() {
             });
     }
 
-//--------------------------------------------------------------------------------------------------------------------
-//Send data to the database
+    //--------------------------------------------------------------------------------------------------------------------
+    //Send data to the database
     async function sendData() {
         if (pur !== '' && costs.amount !== '') {
             let dd = String(date.getDate()).padStart(2, '0')
@@ -93,12 +93,12 @@ function InputArea() {
         }
     }
 
-//--------------------------------------------------------------------------------------------------------------------
-//Get context items
+    //--------------------------------------------------------------------------------------------------------------------
+    //Get context items
     useEffect(getCategory, [])
 
-//--------------------------------------------------------------------------------------------------------------------
-//Rendering
+    //--------------------------------------------------------------------------------------------------------------------
+    //Rendering
     return (
         <div id="inputFormat">
             <div className="inputObject">

@@ -16,8 +16,8 @@ import axios from 'axios';
 
 function Cake() {
 
-//--------------------------------------------------------------------------------------------------------------------
-//Initialization
+    //--------------------------------------------------------------------------------------------------------------------
+    //Initialization
     const [colorInner, setColorInner] = useState([])
     const [dataInner, setDataInner] = useState([])
     const [colorOuter, setColorOuter] = useState([])
@@ -27,23 +27,23 @@ function Cake() {
     const [expense, setExpense] = useState([])
     const [expenseColor, setExpenseColor] = useState([])
 
-    var api = 'http://localhost:3000/' 
+    var api = 'http://localhost:3000/'
 
     function createData(name, value) {
         return { name, value }
     }
 
-    function dateRange(){
+    function dateRange() {
         var today = new Date();
         var yyyy = today.getFullYear();
         var mm = today.getMonth() + 1;
         return mm + "-" + yyyy
     }
 
-//--------------------------------------------------------------------------------------------------------------------
-//Categorys and Purposes cake 
-//Inner 
-    const getPurpose = () => {    
+    //--------------------------------------------------------------------------------------------------------------------
+    //Categorys and Purposes cake 
+    //Inner 
+    const getPurpose = () => {
         let temp = []
         axios.get(api + 'expense/pur/' + dateRange())
             .then(response => {
@@ -59,7 +59,7 @@ function Cake() {
             })
     }
 
-//Outer
+    //Outer
     const getCategory = () => {
         let temp = []
         axios.get(api + 'expense/cat/' + dateRange())
@@ -76,9 +76,9 @@ function Cake() {
             })
     }
 
-//--------------------------------------------------------------------------------------------------------------------
-//Income and expenses cake
-//Inner
+    //--------------------------------------------------------------------------------------------------------------------
+    //Income and expenses cake
+    //Inner
     const getIncome = () => {
         let temp = []
         axios.get(api + 'income/' + dateRange())
@@ -95,7 +95,7 @@ function Cake() {
             })
     }
 
-//Outer
+    //Outer
     const getExpense = () => {
         let temp = []
         let setColor = false
@@ -107,12 +107,12 @@ function Cake() {
                     temp.push(createData(response.data[i].typ_id, response.data[i].value))
                     totalExp += response.data[i].value
                 }
-//TODO: show how much money is still left
+                //TODO: show how much money is still left
 
-                for(let i = 0; i < income.length; i++){
+                for (let i = 0; i < income.length; i++) {
                     totalInc += income[i].value
                 }
-                if(totalInc > totalExp){        
+                if (totalInc > totalExp) {
                     totalExp -= totalInc
                     temp.push(createData(4, totalExp))
                     setColor = true
@@ -122,7 +122,7 @@ function Cake() {
                 for (let i = 0; i < response.data.length; i++) {
                     temp.push(response.data[i].cat_color)
                 }
-                if(setColor){
+                if (setColor) {
                     setColor = false
                     temp.push("#929292")
                 }
@@ -130,17 +130,17 @@ function Cake() {
             })
     }
 
-//--------------------------------------------------------------------------------------------------------------------
-//gethering all data
+    //--------------------------------------------------------------------------------------------------------------------
+    //gethering all data
     useEffect(() => {
-        getIncome()      
+        getIncome()
         getCategory()
         getPurpose()
         getExpense()
     }, [])
-    
-//--------------------------------------------------------------------------------------------------------------------
-//Rendering
+
+    //--------------------------------------------------------------------------------------------------------------------
+    //Rendering
     return (
         <>
             <div className="pieDiv">

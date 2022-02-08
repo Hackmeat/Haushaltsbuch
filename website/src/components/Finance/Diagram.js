@@ -24,7 +24,7 @@ function Diagram() {
     const [yearStats, setYearStats] = useState(null)
     const [cat, setCat] = useState([])
 
-    var api = 'http://localhost:3000/' 
+    var api = 'http://localhost:3000/'
 
     //--------------------------------------------------------------------------------------------------------------------
     //Get data
@@ -34,7 +34,7 @@ function Diagram() {
         var yyyy = today.getFullYear();
         let temp = []
         for (let m = 1; m <= 12; m++) {
-            const response = await axios.get(api + 'month/' + m + '-' + yyyy)          
+            const response = await axios.get(api + 'month/' + m + '-' + yyyy)
             let date = new Date(1000, m - 1, 1)
             let month = date.toLocaleString('default', { month: 'short' });
             let object = { name: month }
