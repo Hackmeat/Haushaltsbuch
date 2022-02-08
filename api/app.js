@@ -150,7 +150,6 @@ app.get('/savings', (req, res) => {
     })
 })
 
-
 //----------------------------------------------------------------
 //Getting data from the frontend and passing it to the db
 //Adding new money flow

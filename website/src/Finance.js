@@ -30,7 +30,6 @@ function Finance() {
                 </div>
             </div>
         </>
-
     );
 }
 
