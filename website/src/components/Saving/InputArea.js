@@ -70,11 +70,11 @@ function InputArea() {
             let yyyy = date.getFullYear()
             let dateFormat = dd + "-" + mm + "-" + yyyy
 
-            /*const res = await axios.post(api + 'add', {
-                "purpose": pur,
+            const res = await axios.post(api + 'savingDev', {
+                "saving_id": pur,
                 "value": costs.amount,
                 "date": dateFormat
-            })*/
+            })
         } else {
             console.log("error")
         }

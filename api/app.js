@@ -148,3 +148,11 @@ app.post('/add', jsonParser, (req, res) => {
     stmt.finalize()
     res.status(200).json('success')
 });
+
+app.post('/savingDev', jsonParser, (req, res) => {
+    const stmt = db.prepare('insert into SavingDevelopment (amount, saving_id, date) values (?, ?, ?)')
+    stmt.run(req.body['value'], req.body['saving_id'], req.body['date'])
+    console.log(req.body)
+    stmt.finalize()
+    res.status(200).json('success')
+});
