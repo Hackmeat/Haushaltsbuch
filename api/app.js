@@ -138,9 +138,22 @@ app.get('/month/:name', (req, res) => {
     })
 })
 
+//get amounts and date and purpose of all money saved
+app.get('/savings', (req, res) => {
+    const stmt = db.prepare('SELECT Payment.id, purpose.purpose, payment.value, payment.date From Payment left Join purpose on Payment.purpose_id = purpose.id Where purpose.category_id like 4')
+    stmt.all(req.params.name, (err, rows) => {
+        if (err) {
+            res.status(500).json('error')
+            return console.error(err.message)
+        }
+        res.status(200).json(rows)
+    })
+})
+
 
 //----------------------------------------------------------------
 //Getting data from the frontend and passing it to the db
+//Adding new money flow
 app.post('/add', jsonParser, (req, res) => {
     const stmt = db.prepare('insert into Payment (value, purpose_id, date) values (?, ?, ?)')
     stmt.run(req.body['value'], req.body['purpose'], req.body['date'])
@@ -149,6 +162,7 @@ app.post('/add', jsonParser, (req, res) => {
     res.status(200).json('success')
 });
 
+//Add statistics for savings development
 app.post('/savingDev', jsonParser, (req, res) => {
     const stmt = db.prepare('insert into SavingDevelopment (amount, saving_id, date) values (?, ?, ?)')
     stmt.run(req.body['value'], req.body['saving_id'], req.body['date'])
