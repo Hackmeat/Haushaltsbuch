@@ -150,6 +150,18 @@ app.get('/savings', (req, res) => {
     })
 })
 
+//get amounts and date and purpose of all money saved
+app.get('/savingsDev', (req, res) => {
+    const stmt = db.prepare('SELECT SavingDevelopment.date, SavingDevelopment.amount,  purpose.purpose From SavingDevelopment Left join purpose on SavingDevelopment.saving_id = purpose.id order by purpose.id')
+    stmt.all(req.params.name, (err, rows) => {
+        if (err) {
+            res.status(500).json('error')
+            return console.error(err.message)
+        }
+        res.status(200).json(rows)
+    })
+})
+
 //----------------------------------------------------------------
 //Getting data from the frontend and passing it to the db
 //Adding new money flow

@@ -19,9 +19,14 @@ function Total() {
     //Get data
     const getSavings = async () => {
         const response = await axios.get(api + 'savings')
+        console.log(response.data)
         //get out all the data needed for total and tabscreens
     }
 
+
+    useEffect(() => {
+        getSavings()
+    })
     //--------------------------------------------------------------------------------------------------------------------
     //Rendering
     return (
