@@ -19,8 +19,17 @@ function Total() {
     //Get data
     const getSavings = async () => {
         const response = await axios.get(api + 'savings')
-        console.log(response.data)
+        orderByDate(response.data)
         //get out all the data needed for total and tabscreens
+    }
+
+    //Sorting all savings by date
+    function orderByDate(json){
+        var temp
+        for(var i = 0; i < json.length; i++) {
+            temp = json[i].date.charAt(0) + "" + json[i].date.charAt(1)
+            console.log(temp)
+        }
     }
 
 
@@ -30,7 +39,9 @@ function Total() {
     //--------------------------------------------------------------------------------------------------------------------
     //Rendering
     return (
-        <></>
+        <>
+        
+        </>
     );
 }
 
